@@ -18,9 +18,10 @@
     $readE->setColumn('A');
     $email = $readE->getEmail('test.xlsx');
 
+    $EmailClass = new Email;
     foreach ($email as $e){
         if(filter_var($e, FILTER_VALIDATE_EMAIL)){
-            if(Email::sendSpreadEmail($e)){
+            if($EmailClass->sendSpreadEmail($e)){
                 echo 'Email ['.$e.'] send Success ! '."\n";
                 $successNum++;
             }else{

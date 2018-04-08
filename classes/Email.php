@@ -4,11 +4,17 @@ namespace classes;
 require 'vendor/autoload.php';
 class Email
 {
+    private $config;
+
+    public function __construct()
+    {
+        $this->config = Config::get();
+    }
 
     /**
      * 发送推广邮件，规定html模板
      */
-    public static function sendSpreadEmail($objectmail)
+    public function sendSpreadEmail($objectmail)
     {
         $view = 'contents.html';
         $message = "To view the message, please use an HTML compatible email viewer! - From www.jiucool.com";
@@ -25,7 +31,7 @@ class Email
      * @param string $title 标题
      * @param string $content 内容
      */
-    private static function sendEmail($objectmail,$message,$view=null,$is_html=true) {
+    private function sendEmail($objectmail,$message,$view=null,$is_html=true) {
         //Create a new PHPMailer instance
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
         //Tell PHPMailer to use SMTP
@@ -42,9 +48,9 @@ class Email
         //Whether to use SMTP authentication
         $mail->SMTPAuth = true;
         //Username to use for SMTP authentication
-        $mail->Username = '312850391@qq.com';
+        $mail->Username = $this->config['email_username'];
         //Password to use for SMTP authentication
-        $mail->Password = 'itjrogdgqwvpcabb';
+        $mail->Password = $this->config['smtp_password'];
         $mail->SMTPSecure = "ssl";// 使用ssl协议方式</span><span style="color:#333333;">
         //Set who the message is to be sent from
         $mail->setFrom('312850391@qq.com', 'SendFrom');
@@ -57,7 +63,7 @@ class Email
         //Read an HTML message body from an external file, convert referenced images to embedded,
         //convert HTML into a basic plain-text alternative body
         if($is_html){
-            $mail->msgHTML(file_get_contents($view,'D:\PHP\wamp64\www\readexcel'));
+            $mail->msgHTML(file_get_contents($view));
         }
         //Replace the plain text body with one created manually  在邮件正文不支持HTML的备用显示
         $mail->AltBody = $message;
