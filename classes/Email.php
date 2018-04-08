@@ -6,12 +6,26 @@ class Email
 {
 
     /**
+     * 发送推广邮件，规定html模板
+     */
+    public static function sendSpreadEmail($objectmail)
+    {
+        $view = 'contents.html';
+        $message = "To view the message, please use an HTML compatible email viewer! - From www.jiucool.com";
+        if(self::sendEmail($objectmail,$message,$view)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * 发送邮件方法
      * @param string $objectmail 目标邮箱地址
      * @param string $title 标题
      * @param string $content 内容
      */
-    public static function sendEmail($objectmail) {
+    private static function sendEmail($objectmail,$message,$view=null,$is_html=true) {
         //Create a new PHPMailer instance
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
         //Tell PHPMailer to use SMTP
@@ -42,9 +56,11 @@ class Email
         $mail->Subject = 'Title';
         //Read an HTML message body from an external file, convert referenced images to embedded,
         //convert HTML into a basic plain-text alternative body
-        $mail->msgHTML(file_get_contents('contents.html','D:\PHP\wamp64\www\readexcel'));
+        if($is_html){
+            $mail->msgHTML(file_get_contents($view,'D:\PHP\wamp64\www\readexcel'));
+        }
         //Replace the plain text body with one created manually  在邮件正文不支持HTML的备用显示
-        $mail->AltBody = "To view the message, please use an HTML compatible email viewer! - From www.jiucool.com";
+        $mail->AltBody = $message;
         //Attach an image file
         //        $mail->addAttachment('images/phpmailer_mini.png');
         //send the message, check for errors

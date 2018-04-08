@@ -10,6 +10,9 @@
     });
     date_default_timezone_set("Asia/Shanghai");
 
+    echo "Start ..\n";
+    $successNum = 0;
+    $faliedNum = 0;
 
     $readE = new ReadExcel();
     $readE->setColumn('A');
@@ -17,18 +20,18 @@
 
     foreach ($email as $e){
         if(filter_var($e, FILTER_VALIDATE_EMAIL)){
-            if(Email::sendEmail($e)){
-                echo 'Email'.$e.' send Success ! '."\n";
+            if(Email::sendSpreadEmail($e)){
+                echo 'Email ['.$e.'] send Success ! '."\n";
+                $successNum++;
             }else{
-                echo 'Email'.$e.' send failed !'."\n";
+                echo 'Email ['.$e.'] send Failed !'."\n";
+                $faliedNum++;
             }
         }
     }
 
+    echo 'Success:['.$successNum.'] , Failed:['.$faliedNum."]\n";
 
-
-
-    echo 'done ..';
 //    var_dump($email_group);
 
 
