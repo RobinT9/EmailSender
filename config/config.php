@@ -9,6 +9,6 @@
 return $data = [
 
     'email_username'    =>  'your_email_username',
-    'smtp_password'     =>  'your_email_smtp_password',
+    'smtp_password'     =>  'your_email_smtp_password2',
 
 ];
