@@ -8,7 +8,7 @@
 
 return $data = [
 
-    'email_username'    =>  '312850391@qq.com',
-    'smtp_password'     =>  'itjrogdgqwvpcabb',
+    'email_username'    =>  'your_email_username',
+    'smtp_password'     =>  'your_email_smtp_password',
 
 ];
