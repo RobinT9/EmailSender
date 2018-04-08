@@ -29,7 +29,9 @@ class Email
      * 发送邮件方法
      * @param string $objectmail 目标邮箱地址
      * @param string $title 标题
-     * @param string $content 内容
+     * @param string $message 内容
+     * @param string $view html模板地址
+     * @param bool   $is_html 是否使用模板
      */
     private function sendEmail($objectmail,$message,$view=null,$is_html=true) {
         //Create a new PHPMailer instance
